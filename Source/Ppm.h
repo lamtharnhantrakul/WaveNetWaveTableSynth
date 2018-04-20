@@ -12,7 +12,7 @@ public:
 
     Error_t initInstance (float fSampleRateInHz, int iNumChannels);
 
-    Error_t process (float **ppfInputBuffer, float *pfVppOutputBuffer, int iNumberOfFrames);
+    Error_t process (const float **ppfInputBuffer, float *pfVppOutputBuffer, int iNumberOfFrames);
 
 protected:
     CPpm ();

@@ -286,7 +286,7 @@
  #define JucePlugin_Build_VST              1
 #endif
 #ifndef  JucePlugin_Build_VST3
- #define JucePlugin_Build_VST3             1
+ #define JucePlugin_Build_VST3             0
 #endif
 #ifndef  JucePlugin_Build_AU
  #define JucePlugin_Build_AU               0
@@ -325,10 +325,10 @@
  #define JucePlugin_ManufacturerCode       0x4d616e75 // 'Manu'
 #endif
 #ifndef  JucePlugin_PluginCode
- #define JucePlugin_PluginCode             0x47686369 // 'Ghci'
+ #define JucePlugin_PluginCode             0x54796b72 // 'Tykr'
 #endif
 #ifndef  JucePlugin_IsSynth
- #define JucePlugin_IsSynth                1
+ #define JucePlugin_IsSynth                0
 #endif
 #ifndef  JucePlugin_WantsMidiInput
  #define JucePlugin_WantsMidiInput         1
@@ -355,13 +355,13 @@
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_VSTCategory
- #define JucePlugin_VSTCategory            kPlugCategSynth
+ #define JucePlugin_VSTCategory            kPlugCategEffect
 #endif
 #ifndef  JucePlugin_Vst3Category
- #define JucePlugin_Vst3Category           "Instrument|Synth"
+ #define JucePlugin_Vst3Category           "Fx"
 #endif
 #ifndef  JucePlugin_AUMainType
- #define JucePlugin_AUMainType             'aumu'
+ #define JucePlugin_AUMainType             'aumf'
 #endif
 #ifndef  JucePlugin_AUSubType
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
@@ -379,7 +379,7 @@
  #define JucePlugin_CFBundleIdentifier     com.yourcompany.WaveNetWaveTable
 #endif
 #ifndef  JucePlugin_RTASCategory
- #define JucePlugin_RTASCategory           2048
+ #define JucePlugin_RTASCategory           0
 #endif
 #ifndef  JucePlugin_RTASManufacturerCode
  #define JucePlugin_RTASManufacturerCode   JucePlugin_ManufacturerCode
@@ -403,7 +403,7 @@
  #define JucePlugin_AAXProductId           JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AAXCategory
- #define JucePlugin_AAXCategory            2048
+ #define JucePlugin_AAXCategory            0
 #endif
 #ifndef  JucePlugin_AAXDisableBypass
  #define JucePlugin_AAXDisableBypass       0
@@ -412,7 +412,7 @@
  #define JucePlugin_AAXDisableMultiMono    0
 #endif
 #ifndef  JucePlugin_IAAType
- #define JucePlugin_IAAType                0x61757269 // 'auri'
+ #define JucePlugin_IAAType                0x6175726d // 'aurm'
 #endif
 #ifndef  JucePlugin_IAASubType
  #define JucePlugin_IAASubType             JucePlugin_PluginCode

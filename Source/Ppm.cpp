@@ -72,7 +72,7 @@ CPpm::~CPpm()
     delete [] m_pfPrevVppm;
 }
 
-Error_t CPpm::process(float **ppfInputBuffer, float *pfVppOutputBuffer, int iNumberOfFrames)
+Error_t CPpm::process(const float **ppfInputBuffer, float *pfVppOutputBuffer, int iNumberOfFrames)
 {
     // reset the vector holding the max vppm per channel
     for (int c=0; c < m_iNumChannels; c++)

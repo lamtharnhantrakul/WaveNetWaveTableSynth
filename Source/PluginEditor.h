@@ -38,12 +38,15 @@ private:
 
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> attackTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> releaseTree;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> ampTree;
     
     Slider attackSlider;
     Slider releaseSlider;
+    Slider ampSlider;
     
     Label attackLabel;
     Label releaseLabel;
+    Label ampLabel;
     
     MeterComponent Meter;
     

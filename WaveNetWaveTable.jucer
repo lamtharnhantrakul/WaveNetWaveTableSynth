@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT name="WaveNetWaveTable" projectType="audioplug" buildStandalone="1"
-              jucerVersion="5.3.1" pluginFormats="buildVST,buildVST3,buildStandalone"
-              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              jucerVersion="5.3.1" pluginFormats="buildStandalone,buildVST"
+              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
               headerPath="/Users/lamtharnhantrakul/code/GTCMT/WaveNetWaveTable/Maximilian"
-              buildVST="1" buildVST3="1" buildAU="0" buildAUv3="0" buildRTAS="0"
+              buildVST="1" buildVST3="0" buildAU="0" buildAUv3="0" buildRTAS="0"
               buildAAX="0" enableIAA="0">
   <MAINGROUP id="Z0KCue" name="WaveNetWaveTable">
     <GROUP id="{9B5BBDAA-5C0C-DBB6-453E-F3DCAC161757}" name="Source">

@@ -51,6 +51,25 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     releaseLabel.setText("Release", dontSendNotification);
     releaseLabel.attachToComponent(&releaseSlider, false);
     
+    // AmpSlider
+    ampSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    ampSlider.setRange(0.0f,1.0f); // 0.0 - 1.0 master amp
+    ampSlider.setValue(0.5f);
+    ampSlider.getNumDecimalPlacesToDisplay();
+    ampSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
+    ampSlider.addListener(this);
+    addAndMakeVisible(ampSlider);
+    
+    ampTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "amp", ampSlider);  // the correct way to interface the slider in editor with processor.
+    
+    addAndMakeVisible(ampLabel);
+    releaseLabel.setText("Amp", dontSendNotification);
+    releaseLabel.attachToComponent(&ampSlider, false);
+    
+    // Change look and feel of all sliders
+    getLookAndFeel().setColour(Slider::thumbColourId, Colours::deeppink);
+    getLookAndFeel().setColour(Slider::trackColourId, Colours::lightskyblue);
+    
     // Ppm Meter
     addAndMakeVisible(Meter);
     startTimer(10);  // start the timer to tick every 10ms
@@ -86,14 +105,13 @@ void WaveNetWaveTableAudioProcessorEditor::resized()
     area.removeFromBottom (footerHeight);
     
     // >>> Sliders
-    auto sliderWidth = 50;
-    //attackSlider.setBounds(10, 40, 40, getHeight()-100);
-    //releaseSlider.setBounds(100, 40, 40, getHeight()-100);
+    auto sliderWidth = 70;
     attackSlider.setBounds(area.removeFromLeft(sliderWidth));
     releaseSlider.setBounds(area.removeFromLeft(sliderWidth));
+    ampSlider.setBounds(area.removeFromLeft(sliderWidth));
     
     // >>> Peak Meter
-    auto peakMeterWidth = 80;
+    auto peakMeterWidth = 30;
     Meter.setBounds(area.removeFromLeft(peakMeterWidth));
     
 }
@@ -106,6 +124,9 @@ void WaveNetWaveTableAudioProcessorEditor::sliderValueChanged(Slider* slider)
     }
     else if (slider == &releaseSlider) {
         processor.releaseTime = releaseSlider.getValue();
+    }
+    else if (slider == &ampSlider) {
+        processor.ampValue = ampSlider.getValue();
     }
     
 }

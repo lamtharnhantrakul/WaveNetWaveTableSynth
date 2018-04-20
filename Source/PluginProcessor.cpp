@@ -29,9 +29,11 @@ tree (*this, nullptr)
     // >>> For Updating slider changes
     NormalisableRange<float> attackParam(0.1f, 5000.0f); // a DAW requires everything to be normalized from 0.0 - 1.0
     NormalisableRange<float> releaseParam(0.1f, 5000.0f);
+    NormalisableRange<float> ampParam(0.0f, 1.0f);
     
     tree.createAndAddParameter(("attack"), "Attack", "Attack", attackParam, 0.1f, nullptr, nullptr);
     tree.createAndAddParameter(("release"), "Release", "Release", releaseParam, 0.1f, nullptr, nullptr);
+    tree.createAndAddParameter(("amp"), "Amp", "Amp", ampParam, 0.5f, nullptr, nullptr);
     
     mySynth.clearVoices();
     
@@ -166,7 +168,7 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     for (int v = 0; v < mySynth.getNumVoices(); v++) {
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(v))))
         {
-            myVoice->getParam(tree.getRawParameterValue("attack"), tree.getRawParameterValue("release"));
+            myVoice->getParam(tree.getRawParameterValue("amp"), tree.getRawParameterValue("attack"), tree.getRawParameterValue("release"));
         }
     }
     
@@ -175,8 +177,11 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     // Write audio from synth to buffer
     mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     // Process the audio buffer to color the meter
-    float **writePointers = buffer.getArrayOfWritePointers();
-    m_pCPpm->process(writePointers, m_pfOutputVppm, buffer.getNumSamples());
+    const float **readPointers = buffer.getArrayOfReadPointers();
+    //DBG(readPointers[0][1500]);
+    m_pCPpm->process(readPointers, m_pfOutputVppm, buffer.getNumSamples());
+    
+    
 }
 
 //==============================================================================

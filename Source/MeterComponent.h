@@ -28,7 +28,7 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MeterComponent)
     
-    Colour meterColor = Colours::green;
+    Colour meterColor = Colours::mediumorchid;
     float fMeterHeight;
     float m_fEpsilon;
     float m_fMaxHeight;
