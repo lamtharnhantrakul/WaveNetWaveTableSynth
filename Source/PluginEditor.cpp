@@ -27,11 +27,11 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     attackSlider.getNumDecimalPlacesToDisplay();
     attackSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
     attackSlider.addListener(this);
-    addAndMakeVisible(attackSlider);
+    addAndMakeVisible(&attackSlider);
     
     attackTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "attack", attackSlider);  // the correct way to interface the slider in editor with processor.
     
-    addAndMakeVisible(attackLabel);
+    addAndMakeVisible(&attackLabel);
     attackLabel.setText("Attack", dontSendNotification);
     attackLabel.attachToComponent(&attackSlider, false);
     
@@ -43,7 +43,7 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     decaySlider.getNumDecimalPlacesToDisplay();
     decaySlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
     decaySlider.addListener(this);
-    addAndMakeVisible(decaySlider);
+    addAndMakeVisible(&decaySlider);
     
     decayTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "decay", decaySlider);  // the correct way to interface the slider in editor with processor.
     
@@ -59,7 +59,7 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     sustainSlider.getNumDecimalPlacesToDisplay();
     sustainSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
     sustainSlider.addListener(this);
-    addAndMakeVisible(sustainSlider);
+    addAndMakeVisible(&sustainSlider);
     
     sustainTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "sustain", sustainSlider);  // the correct way to interface the slider in editor with processor.
     
@@ -75,7 +75,7 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     releaseSlider.getNumDecimalPlacesToDisplay();
     releaseSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
     releaseSlider.addListener(this);
-    addAndMakeVisible(releaseSlider);
+    addAndMakeVisible(&releaseSlider);
     
     releaseTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "release", releaseSlider);  // the correct way to interface the slider in editor with processor.
     
@@ -90,7 +90,7 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     ampSlider.getNumDecimalPlacesToDisplay();
     ampSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
     ampSlider.addListener(this);
-    addAndMakeVisible(ampSlider);
+    addAndMakeVisible(&ampSlider);
     
     ampTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "amp", ampSlider);  // the correct way to interface the slider in editor with processor.
     

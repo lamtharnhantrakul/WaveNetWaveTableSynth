@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "MeterComponent.h"
+#include "Oscillator.h"
 
 //==============================================================================
 /**
@@ -55,7 +56,11 @@ private:
     Label releaseLabel;
     Label ampLabel;
     
+    // For PPM meter
     MeterComponent Meter;
+    
+    // For the dropdown box
+    //Oscillator oscGUI;
     
     void timerCallback() override;
     

@@ -114,6 +114,8 @@
             file="Source/MeterComponent.h"/>
       <FILE id="mFQKap" name="Ppm.cpp" compile="1" resource="0" file="Source/Ppm.cpp"/>
       <FILE id="B8lnzs" name="Ppm.h" compile="0" resource="0" file="Source/Ppm.h"/>
+      <FILE id="a7zZ0h" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+      <FILE id="loN4bE" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
     </GROUP>
   </MAINGROUP>
   <LIVE_SETTINGS>
