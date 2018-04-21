@@ -24,7 +24,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void combBoxChanged(ComboBox*);
+    void comboBoxChanged(ComboBox* box) override;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator)

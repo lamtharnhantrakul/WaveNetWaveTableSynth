@@ -37,6 +37,9 @@ private:
     // access the processor object that created it.
     WaveNetWaveTableAudioProcessor& processor;
     
+    // For the dropdown box
+    Oscillator oscGUI;
+    
     // Create Tree objects: this is JUCE's way of communicating values between `PluginEditor` and `PluginProcessor`
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> attackTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> decayTree;
@@ -59,8 +62,7 @@ private:
     // For PPM meter
     MeterComponent Meter;
     
-    // For the dropdown box
-    //Oscillator oscGUI;
+    
     
     void timerCallback() override;
     

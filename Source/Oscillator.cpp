@@ -19,7 +19,7 @@ Oscillator::Oscillator()
     oscMenu.addItem("Sine", 1);
     oscMenu.addItem("Saw", 2);
     oscMenu.addItem("Square", 3);
-    addAndMakeVisible(oscMenu);
+    addAndMakeVisible(&oscMenu);
     oscMenu.addListener(this);
     
     oscMenu.setJustificationType(Justification::centred);
@@ -40,6 +40,6 @@ void Oscillator::resized()
     oscMenu.setBounds(area.removeFromTop(20));
 }
 
-void Oscillator::combBoxChanged(ComboBox* box)
+void Oscillator::comboBoxChanged(ComboBox* box)
 {
 }
