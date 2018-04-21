@@ -33,6 +33,28 @@ public:
     }
     
     //===========================================
+    void getOscType(float* selection)
+    {
+        theWave = *selection; //dereferenec the selection
+    }
+    
+    double setOscType ()
+    {
+        if (theWave == 0) {
+            return osc1.sinewave(frequency);
+        }
+        if (theWave == 1) {
+            return osc1.saw(frequency);
+        }
+        if (theWave == 2) {
+            return osc1.square(frequency);
+        }
+        else {
+            return osc1.saw(frequency);
+        }
+    }
+    
+    //===========================================
     void startNote(int midiNoteNumber, float velocity, SynthesiserSound *sound, int currentPitchWheelPosition)
     {
         env1.trigger = 1;
@@ -70,8 +92,7 @@ public:
         // ADSR level is set by `getParam`.
         // Add the waveforms to the block
         for (int sample = 0; sample < numSamples; sample++) {
-            double theWave = osc1.saw(frequency);
-            double theSound = env1.adsr(theWave, env1.trigger) * level * masterAmp;
+            double theSound = env1.adsr(setOscType(), env1.trigger) * level * masterAmp;
             double filteredSound = filter1.lores(theSound, 14000, 0.1);
             for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++) {
                 outputBuffer.addSample(channel, startSample, theSound);
@@ -83,6 +104,7 @@ private:
     double level;
     double frequency;
     double masterAmp;
+    int theWave;  // wave type selection index
     
     maxiOsc osc1;
     maxiEnv env1;

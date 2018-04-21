@@ -40,6 +40,10 @@ tree (*this, nullptr)
     tree.createAndAddParameter(("release"), "Release", "Release", releaseParam, 0.0f, nullptr, nullptr);
     tree.createAndAddParameter(("amp"), "Amp", "Amp", ampParam, 0.8f, nullptr, nullptr);
     
+    // For the drop down combobox
+    NormalisableRange<float> wavetypeParam(0,2); // Index in the box is 1-3, but value passing in tree is from 0-2
+    tree.createAndAddParameter("wavetype", "WaveType", "wavetype", wavetypeParam, 1, nullptr, nullptr);
+    
     mySynth.clearVoices();
     // >>> For Synthesizer
     // Add synth voices (max number of voices)
@@ -172,7 +176,15 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     for (int v = 0; v < mySynth.getNumVoices(); v++) {
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(v))))
         {
-            myVoice->getParam(tree.getRawParameterValue("amp"), tree.getRawParameterValue("attack"), tree.getRawParameterValue("decay"), tree.getRawParameterValue("sustain"), tree.getRawParameterValue("release"));
+            // Controls the Amp and ADSR
+            myVoice->getParam(tree.getRawParameterValue("amp"),
+                              tree.getRawParameterValue("attack"),
+                              tree.getRawParameterValue("decay"),
+                              tree.getRawParameterValue("sustain"),
+                              tree.getRawParameterValue("release"));
+            
+            // Wave selection
+            myVoice->getOscType(tree.getRawParameterValue("wavetype"));
         }
     }
     

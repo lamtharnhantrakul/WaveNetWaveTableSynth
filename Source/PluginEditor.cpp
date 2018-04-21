@@ -13,11 +13,14 @@
 
 //==============================================================================
 WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (WaveNetWaveTableAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+    : AudioProcessorEditor (&p), processor (p), oscGUI(p) // give the processor instance to oscGUI
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (600, 300);
+    
+    //Drop down box
+    addAndMakeVisible(&oscGUI);
     
     // AttackSlider
     attackSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
@@ -126,18 +129,15 @@ void WaveNetWaveTableAudioProcessorEditor::paint (Graphics& g)
 
 void WaveNetWaveTableAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-    
+    // Define a box area size, then sequentially remove spaces from it
     auto area = getLocalBounds();
     auto headerHeight = 20;
     auto footerHeight = 20;
-    
     area.removeFromTop    (headerHeight);
     area.removeFromBottom (footerHeight);
     
     // >>> Sliders..this is the correct way to "sequentially" add objects by removing bounds from the original window
-    auto sliderWidth = 70;
+    auto sliderWidth = 50;
     attackSlider.setBounds(area.removeFromLeft(sliderWidth));
     decaySlider.setBounds(area.removeFromLeft(sliderWidth));
     sustainSlider.setBounds(area.removeFromLeft(sliderWidth));
@@ -147,6 +147,10 @@ void WaveNetWaveTableAudioProcessorEditor::resized()
     // >>> Peak Meter
     auto peakMeterWidth = 30;
     Meter.setBounds(area.removeFromLeft(peakMeterWidth));
+    
+    // >>> Add the combo box
+    auto comboBoxWidth = 200;
+    oscGUI.setBounds(area.removeFromLeft(comboBoxWidth));
     
 }
 
