@@ -33,6 +33,7 @@ public:
     }
     
     //===========================================
+    // For controlling the OSC type
     void getOscType(float* selection)
     {
         theWave = *selection; //dereferenec the selection
@@ -52,6 +53,19 @@ public:
         else {
             return osc1.saw(frequency);
         }
+    }
+    
+    //===========================================
+    // For controlling the Filter Cutoff
+    void getFilterCutoff(float* cutoff)
+    {
+        theCutoff = *cutoff; // dereference the cutoff
+    }
+    
+    float setFilterCutoff()
+    {
+  
+        return theCutoff; // to follow same design pattern as `getOscType` and `setOscType`
     }
     
     //===========================================
@@ -93,9 +107,9 @@ public:
         // Add the waveforms to the block
         for (int sample = 0; sample < numSamples; sample++) {
             double theSound = env1.adsr(setOscType(), env1.trigger) * level * masterAmp;
-            double filteredSound = filter1.lores(theSound, 14000, 0.1);
+            double filteredSound = filter1.lopass(theSound, setFilterCutoff());  // simple lopass
             for (int channel = 0; channel < outputBuffer.getNumChannels(); channel++) {
-                outputBuffer.addSample(channel, startSample, theSound);
+                outputBuffer.addSample(channel, startSample, filteredSound);
             }
             ++startSample;
         }
@@ -105,6 +119,7 @@ private:
     double frequency;
     double masterAmp;
     int theWave;  // wave type selection index
+    float theCutoff;  // LPF cutoff
     
     maxiOsc osc1;
     maxiEnv env1;

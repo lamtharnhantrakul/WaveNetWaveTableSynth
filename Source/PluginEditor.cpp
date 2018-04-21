@@ -101,6 +101,20 @@ WaveNetWaveTableAudioProcessorEditor::WaveNetWaveTableAudioProcessorEditor (Wave
     releaseLabel.setText("Amp", dontSendNotification);
     releaseLabel.attachToComponent(&ampSlider, false);
     
+    // FreqSlider
+    freqCutoffSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    freqCutoffSlider.setRange(0.0f,1.0f); // Maximillian Lopass takes 0.0 - 1.0 as input parameter
+    freqCutoffSlider.getNumDecimalPlacesToDisplay();
+    freqCutoffSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40.0, 20.0);
+    freqCutoffSlider.addListener(this);
+    addAndMakeVisible(&freqCutoffSlider);
+    
+    freqCutoffTree = new AudioProcessorValueTreeState::SliderAttachment (processor.tree, "cutoff", freqCutoffSlider);  // the correct way to interface the slider in editor with processor.
+    
+    addAndMakeVisible(freqCutoffLabel);
+    freqCutoffLabel.setText("Cutoff", dontSendNotification);
+    freqCutoffLabel.attachToComponent(&freqCutoffSlider, false);
+    
     // Change look and feel of all sliders
     getLookAndFeel().setColour(Slider::thumbColourId, Colours::deeppink);
     getLookAndFeel().setColour(Slider::trackColourId, Colours::lightskyblue);
@@ -143,6 +157,7 @@ void WaveNetWaveTableAudioProcessorEditor::resized()
     sustainSlider.setBounds(area.removeFromLeft(sliderWidth));
     releaseSlider.setBounds(area.removeFromLeft(sliderWidth));
     ampSlider.setBounds(area.removeFromLeft(sliderWidth));
+    freqCutoffSlider.setBounds(area.removeFromLeft(sliderWidth));
     
     // >>> Peak Meter
     auto peakMeterWidth = 30;
@@ -172,6 +187,9 @@ void WaveNetWaveTableAudioProcessorEditor::sliderValueChanged(Slider* slider)
     }
     else if (slider == &releaseSlider) {
         processor.releaseTime = releaseSlider.getValue();
+    }
+    else if (slider == &freqCutoffSlider) {
+        processor.freqCutoff = freqCutoffSlider.getValue();
     }
 }
 

@@ -65,6 +65,7 @@ public:
     float sustainTime;
     float releaseTime;
     float ampValue;
+    float freqCutoff;
     AudioProcessorValueTreeState tree;
     
     //==============================================================================

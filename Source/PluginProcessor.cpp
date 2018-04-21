@@ -32,17 +32,21 @@ tree (*this, nullptr)
     NormalisableRange<float> sustainParam(0.1f, 5000.0f);
     NormalisableRange<float> releaseParam(0.1f, 5000.0f);
     NormalisableRange<float> ampParam(0.0f, 1.0f);
+    NormalisableRange<float> freqCutoffParam(0.0f, 1.0f);  // I am using a Maximillian lopass object which takes 0.0 - 1.0 as cutoff
     
     // The tree object is used to communicate values between the `PluginEditor` and the `PluginProcessor`
     tree.createAndAddParameter(("attack"), "Attack", "Attack", attackParam, 0.1f, nullptr, nullptr);
     tree.createAndAddParameter(("decay"), "Decay", "Decay", decayParam, 0.1f, nullptr, nullptr);
-    tree.createAndAddParameter(("sustain"), "Sustain", "sustain", sustainParam, 5000.0f, nullptr, nullptr);
+    tree.createAndAddParameter(("sustain"), "Sustain", "Sustain", sustainParam, 5000.0f, nullptr, nullptr);
     tree.createAndAddParameter(("release"), "Release", "Release", releaseParam, 0.0f, nullptr, nullptr);
     tree.createAndAddParameter(("amp"), "Amp", "Amp", ampParam, 0.8f, nullptr, nullptr);
+    tree.createAndAddParameter(("cutoff"), "Cutoff", "Cutoff", freqCutoffParam, 0.5f, nullptr, nullptr);
     
     // For the drop down combobox
     NormalisableRange<float> wavetypeParam(0,2); // Index in the box is 1-3, but value passing in tree is from 0-2
-    tree.createAndAddParameter("wavetype", "WaveType", "wavetype", wavetypeParam, 1, nullptr, nullptr);
+    tree.createAndAddParameter("wavetype", "WaveType", "Wavetype", wavetypeParam, 1, nullptr, nullptr);
+    
+    
     
     mySynth.clearVoices();
     // >>> For Synthesizer
@@ -176,6 +180,9 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     for (int v = 0; v < mySynth.getNumVoices(); v++) {
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(v))))
         {
+            // Wave selection
+            myVoice->getOscType(tree.getRawParameterValue("wavetype"));
+            
             // Controls the Amp and ADSR
             myVoice->getParam(tree.getRawParameterValue("amp"),
                               tree.getRawParameterValue("attack"),
@@ -183,8 +190,8 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
                               tree.getRawParameterValue("sustain"),
                               tree.getRawParameterValue("release"));
             
-            // Wave selection
-            myVoice->getOscType(tree.getRawParameterValue("wavetype"));
+            // Filter cutoff
+            myVoice->getFilterCutoff(tree.getRawParameterValue("cutoff"));
         }
     }
     
@@ -194,7 +201,7 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     mySynth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
     // Process the audio buffer to color the meter
     const float **readPointers = buffer.getArrayOfReadPointers();
-    //DBG(readPointers[0][1500]);
+
     m_pCPpm->process(readPointers, m_pfOutputVppm, buffer.getNumSamples());
     
     

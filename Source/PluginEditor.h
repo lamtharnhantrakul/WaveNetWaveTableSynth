@@ -46,18 +46,21 @@ private:
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> sustainTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> releaseTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> ampTree;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> freqCutoffTree;
     
     Slider attackSlider;
     Slider decaySlider;
     Slider sustainSlider;
     Slider releaseSlider;
     Slider ampSlider;
+    Slider freqCutoffSlider;
     
     Label attackLabel;
     Label decayLabel;
     Label sustainLabel;
     Label releaseLabel;
     Label ampLabel;
+    Label freqCutoffLabel;
     
     // For PPM meter
     MeterComponent Meter;
