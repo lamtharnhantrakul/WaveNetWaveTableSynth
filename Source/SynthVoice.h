@@ -22,11 +22,13 @@ public:
     }
     
     //===========================================
-    void getParam (float* amp, float* attack, float* release)
+    void getParam (float* amp, float* attack, float* decay, float* sustain, float* release)
     {
         // dereference the pointers
         masterAmp = *amp;
         env1.setAttack(double(*attack));
+        env1.setDecay(double(*decay));
+        env1.setSustain(double(*sustain));
         env1.setRelease(double(*release));
     }
     
@@ -65,10 +67,8 @@ public:
      //===========================================
     void renderNextBlock (AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
     {
-        // Make an ADSR
-        env1.setDecay(500);
-        env1.setSustain(0.8);
-        
+        // ADSR level is set by `getParam`.
+        // Add the waveforms to the block
         for (int sample = 0; sample < numSamples; sample++) {
             double theWave = osc1.saw(frequency);
             double theSound = env1.adsr(theWave, env1.trigger) * level * masterAmp;

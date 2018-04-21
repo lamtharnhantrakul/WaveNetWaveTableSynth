@@ -26,17 +26,21 @@ attackTime(0.1f),
 tree (*this, nullptr)
 #endif
 {
-    // >>> For Updating slider changes
-    NormalisableRange<float> attackParam(0.1f, 5000.0f); // a DAW requires everything to be normalized from 0.0 - 1.0
+    // >>> For Updating slider changes... a DAW requires everything to be normalized from 0.0 - 1.0
+    NormalisableRange<float> attackParam(0.1f, 5000.0f);
+    NormalisableRange<float> decayParam(0.1f, 5000.0f);
+    NormalisableRange<float> sustainParam(0.1f, 5000.0f);
     NormalisableRange<float> releaseParam(0.1f, 5000.0f);
     NormalisableRange<float> ampParam(0.0f, 1.0f);
     
+    // The tree object is used to communicate values between the `PluginEditor` and the `PluginProcessor`
     tree.createAndAddParameter(("attack"), "Attack", "Attack", attackParam, 0.1f, nullptr, nullptr);
-    tree.createAndAddParameter(("release"), "Release", "Release", releaseParam, 0.1f, nullptr, nullptr);
-    tree.createAndAddParameter(("amp"), "Amp", "Amp", ampParam, 0.5f, nullptr, nullptr);
+    tree.createAndAddParameter(("decay"), "Decay", "Decay", decayParam, 0.1f, nullptr, nullptr);
+    tree.createAndAddParameter(("sustain"), "Sustain", "sustain", sustainParam, 5000.0f, nullptr, nullptr);
+    tree.createAndAddParameter(("release"), "Release", "Release", releaseParam, 0.0f, nullptr, nullptr);
+    tree.createAndAddParameter(("amp"), "Amp", "Amp", ampParam, 0.8f, nullptr, nullptr);
     
     mySynth.clearVoices();
-    
     // >>> For Synthesizer
     // Add synth voices (max number of voices)
     for (int i = 0; i < 8; i++) {
@@ -168,7 +172,7 @@ void WaveNetWaveTableAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     for (int v = 0; v < mySynth.getNumVoices(); v++) {
         if ((myVoice = dynamic_cast<SynthVoice*>(mySynth.getVoice(v))))
         {
-            myVoice->getParam(tree.getRawParameterValue("amp"), tree.getRawParameterValue("attack"), tree.getRawParameterValue("release"));
+            myVoice->getParam(tree.getRawParameterValue("amp"), tree.getRawParameterValue("attack"), tree.getRawParameterValue("decay"), tree.getRawParameterValue("sustain"), tree.getRawParameterValue("release"));
         }
     }
     

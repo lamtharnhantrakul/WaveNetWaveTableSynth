@@ -61,6 +61,8 @@ public:
     
     //==============================================================================
     float attackTime;
+    float decayTime;
+    float sustainTime;
     float releaseTime;
     float ampValue;
     AudioProcessorValueTreeState tree;

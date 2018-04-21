@@ -35,16 +35,23 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     WaveNetWaveTableAudioProcessor& processor;
-
+    
+    // Create Tree objects: this is JUCE's way of communicating values between `PluginEditor` and `PluginProcessor`
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> attackTree;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> decayTree;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> sustainTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> releaseTree;
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> ampTree;
     
     Slider attackSlider;
+    Slider decaySlider;
+    Slider sustainSlider;
     Slider releaseSlider;
     Slider ampSlider;
     
     Label attackLabel;
+    Label decayLabel;
+    Label sustainLabel;
     Label releaseLabel;
     Label ampLabel;
     

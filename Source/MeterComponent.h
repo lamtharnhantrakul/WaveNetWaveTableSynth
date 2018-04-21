@@ -32,6 +32,7 @@ private:
     float fMeterHeight;
     float m_fEpsilon;
     float m_fMaxHeight;
+    float m_fMinDb;
     
     float scaleDBtoMeterHeight(float fdBValue);
 };

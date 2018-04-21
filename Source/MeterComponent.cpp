@@ -18,6 +18,7 @@ MeterComponent::MeterComponent()
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
     m_fEpsilon = 1.0f * pow(10.0f,-5.0f); // if signal is 0 we should get -100dB
+    m_fMinDb = -30.0f;
 }
 
 MeterComponent::~MeterComponent()
@@ -55,7 +56,7 @@ void MeterComponent::resized()
 float MeterComponent::scaleDBtoMeterHeight(float fdBValue)
 {
     //DBG((1.0f-(fdBValue/-12.0f)) * 300.0f);
-    float fHeightValue = (1.0f-(fdBValue/-12.0f)) * getLocalBounds().getHeight();  // Scale the dB value according to the height
+    float fHeightValue = (1.0f-(fdBValue/m_fMinDb)) * getLocalBounds().getHeight();  // Scale the dB value according to the height
     
     // If height is too high (above 300 pixels), clamp it to the max height
     if (fHeightValue > getLocalBounds().getHeight()) {
@@ -72,8 +73,8 @@ float MeterComponent::scaleDBtoMeterHeight(float fdBValue)
 void MeterComponent::setValue(float fdBValue)
 {
     //DBG(fdBValue);
-    // if dB value is above -12 then paint it and set the height accordingly
-    if (fdBValue > -12) {
+    // if dB value is above threshold then paint it and set the height accordingly
+    if (fdBValue > m_fMinDb) {
        fMeterHeight = scaleDBtoMeterHeight(fdBValue);
     } else {
         // make the height a very small non zero value (`DrawRect()` doesn't like 0 height)
